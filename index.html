@@ -58,7 +58,7 @@ input {
     line-height: 1.5;
      box-sizing: border-box;
      background-color: bisque;
-}
+
 
 }
 ul{
@@ -99,10 +99,6 @@ ul{
     margin: 0 3px 0 0;
     overflow: hidden;
    	background: url(ic_rating_s.png) no-repeat;
-    background: -webkit-image-set(url(/ic_rating_s.png 1x, url(/ic_rating_s@2x.png) 2x) no-repeat;
-    background: -moz-image-set(url(ic_rating_s.png) 1x, url(ic_rating_s@2x.png) 2x) no-repeat;
-    background: -o-image-set(url(ic_rating_s.png) 1x, url(ic_rating_s@2x.png) 2x) no-repeat;
-    background: -ms-image-set(url(ic_rating_s.png) 1x, url(ic_rating_s@2x.png) 2x) no-repeat;
     background-position: 0 0px;
 }  
 .hide{
@@ -165,51 +161,10 @@ ul{
 	
 	<p id="tips"><!-- 搜索javascript,共找到111111条结果 --></p>
 	<div id="con">
-		<ul id="oul">
-		<!-- 	<li>
-				<div>
-					<p>[书籍]<a href="">JavaScript</a></p>
-					<p>
-						<i class="star"></i>  					
-						<em>9.2</em>
-						<span>(107评价)</span>
-						<span>克罗克福特 / 东南大学出版社 / 2009	</span>
-					</p>
-					<p>
-						《JavaScript:The Good Parts(影印版)》一书中，Crockford深度分析了一堆好的意图和盲目的错误，为你提供了所有JavaScript的地道优良部分的细节，包括：·语法·继承
-					</p>
-				</div>
-				<div>
-					<img src="https://img3.doubanio.com/spic/s3400022.jpg">
-				</div>
-			</li>
-			<li>
-				<div>
-					<p>[书籍]<a href="">JavaScript</a></p>
-					<p>
-						<i class="star"></i>  					
-						<em>9.2</em>
-						<span>(107评价)</span>
-						<span>克罗克福特 / 东南大学出版社 / 2009	</span>
-					</p>
-					<p>
-						《JavaScript:The Good Parts(影印版)》一书中，Crockford深度分析了一堆好的意图和盲目的错误，为你提供了所有JavaScript的地道优良部分的细节，包括：·语法·继承
-					</p>
-				</div>
-				<div>
-					<img src="https://img3.doubanio.com/spic/s3400022.jpg">
-				</div>
-			</li> -->
-		</ul> 
+		<ul id="oul"></ul> 
 	</div>
 	<div id="container">
-	 	<div id="fy">
-	   <!-- <a href="#1">1</a>
-			<a href="#2">2</a>
-			<a href="#3">3</a>
-			<a href="#4">4</a>
-			<a href="#5">5</a> -->
-	   </div>
+	 	<div id="fy"></div>
 	</div>
 	
 </div>
@@ -228,11 +183,28 @@ function getInfo(data){
 var count=data.count;
 var all=data.total;
 
-otip.innerHTML='搜索'+oInp.value+',共找到'+data.total+'条结果'
+otip.innerHTML='搜索'+oInp.value+',共找到'+data.total+'条结果';
 	var html="";
-	
-	for (var i = 0; i < data.books.length; i++) {
-		html+='<li><div><p>[书籍]<a target="_blank" href="'+data.books[i].alt+'">'+data.books[i].title+'</a></p><p><i class="star"></i><em>'+data.books[i].rating.average+'</em><span>('+data.books[i].rating.numRaters+'评价)</span><span>'+data.books[i].author[0]+' / '+data.books[i].publisher+' / '+data.books[i].pubdate+'</span></p><p class="tx_h">'+data.books[i].summary+'</p></div><div><img src="'+data.books[i].image+'" class="max_img"></div></li>'
+	console.log(data)
+	for (var i = 0; i < data.subjects.length; i++) {
+		html+=`
+		<li>
+				<div>
+					<p>
+						<a target="_blank" href="`+data.subjects[i].alt+`">`+data.subjects[i].title+`(`+data.subjects[i].year+`)</a>
+					</p>
+					<p>
+						<i class="star"></i><em>`+data.subjects[i].rating.average+`</em>
+						<span>(`+data.subjects[i].rating.average+`评价)</span>
+						
+					</p>
+					<p class="tx_h">`+data.subjects[i].genres.join("/")+`</p>
+				</div>
+				<div>
+					<img src="`+data.subjects[i].images.small+`" class="max_img" />
+				</div>
+			</li>
+		`
 	}
 
 	oUl.innerHTML=html;
@@ -250,7 +222,7 @@ otip.innerHTML='搜索'+oInp.value+',共找到'+data.total+'条结果'
 	
 	
 
-}
+};
 
 obtn.onclick=getData;
 function getData(){
@@ -264,7 +236,7 @@ function getData(){
 	otip.innerHTML="";
 	onloading.style.display="block";
 	var oScript=document.createElement("script");
-	oScript.src='https://api.douban.com/v2/book/search?q='+oInp.value+'&callback=getInfo&start=0';
+	oScript.src='https://api.douban.com/v2/movie/search?q='+oInp.value+'&callback=getInfo&start=0';
 	setTimeout(function(){
 		onloading.style.display="none";
 		document.body.appendChild(oScript);

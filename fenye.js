@@ -110,7 +110,7 @@
 			var nownum = parseInt(this.getAttribute('href').substring(1));
 			var start=(nownum-1)*20;
 			var oScript=document.createElement("script");
-			oScript.src='https://api.douban.com/v2/book/search?q='+oInp.value+'&callback=getInfo&start='+start;
+			oScript.src='https://api.douban.com/v2/movie/search?q='+oInp.value+'&callback=getInfo&start='+start;
 			document.body.appendChild(oScript)
 			
 			var timer=setInterval(function(){
@@ -133,9 +133,9 @@
 			callback:callback
 		})
 			
-			return false;//阻止页面跳转
+			return false//阻止页面跳转
 			
-		};
+		}
 	}
 	}
 	
