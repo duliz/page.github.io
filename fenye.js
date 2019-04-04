@@ -7,7 +7,7 @@
 		var allnum=opt.allnum || 5;
 		var nownum=opt.nownum || 1;
 		var callback = opt.callback || function(){};
-		
+		//页数大于等于2时添加后退一页
 		if (nownum>=2) {
 			var oA=document.createElement("a");
 				oA.href="#"+(nownum-1);
@@ -26,7 +26,7 @@
 				oA.href="javascript:;";
 				oA.innerHTML="...";
 				oId.appendChild(oA)
-				}
+		}
 		if (allnum<=5) {
 			for (var i = 1; i <=allnum; i++) {
 				var oA=document.createElement("a");
@@ -50,21 +50,13 @@
 					}
 				}else if( (allnum-nownum)==0 || (allnum-nownum)==1){
 						oA.href="#"+(allnum-5+i);
-					if((allnum - nownum) == 1 && i==4){
-						oA.innerHTML = (allnum - 5 + i);
-					}
-					else if((allnum - nownum) == 0 && i==5){
+					if(((allnum - nownum) == 1 && i==4) || ((allnum - nownum) == 0 && i==5)){
 						oA.innerHTML = (allnum - 5 + i);
 					}
 					else{
 						oA.innerHTML="["+(allnum-5+i)+"]"
 						}
-				}
-				// else if(allnum-nownum)>=4){
-
-
-				// }
-				else{
+				}else{
 				oA.href="#"+(nownum-3+i);
 					if (nownum==(nownum-3+i)) {
 						oA.innerHTML=nownum-3+i
@@ -81,7 +73,7 @@
 			}
 
 
-		}
+		};
 		if ( (allnum-nownum)>=4 && allnum>=6) {
 			var oA=document.createElement("a");
 				oA.href="javascript:;";
